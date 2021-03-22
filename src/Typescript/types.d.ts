@@ -6,6 +6,16 @@ export interface CardProps {
 }
 
 /* ================================ Routes / Navigation ================================ */
-export type HomeScreenNavigationProp = DrawerNavigationProp<
+export type NavigationProp = DrawerNavigationProp<
     RootStackParamList
 >
+
+/* ================================ Transactions ================================ */
+export interface TransactionsTableData {
+    tableHead: string[],
+    tableTitle: string[],
+    tableData: [
+        [string, string]
+    ] | [] | any
+    heigthArr: number[]
+}
