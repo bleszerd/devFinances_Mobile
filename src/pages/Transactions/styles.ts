@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
-import { Table, TableWrapper as TABWRAP, Row, Rows, Col } from 'react-native-table-component'
 import { Feather } from '@expo/vector-icons';
+import { Poppins_800ExtraBold } from '@expo-google-fonts/poppins';
+import { Table, TableWrapper as TlbWppr, Row, Rows, Col } from 'react-native-table-component'
 
 export const Container = styled.SafeAreaView`
     flex: 1;
@@ -10,13 +11,8 @@ export const Container = styled.SafeAreaView`
 export const TableContainer = styled.ScrollView`
     padding-horizontal: 5px;
     margin-top: -25%;
-    width: 92%;
+    width: 98%;
     align-self: center;
-`
-
-export const TableWrapper = styled(TABWRAP)`
-    flex-direction: row;
-    background: ${({ theme }) => theme.colors.white};
 `
 
 export const RadiusEffect = styled.View`
@@ -26,48 +22,6 @@ export const RadiusEffect = styled.View`
     border-bottom-right-radius: 11px;
     border-bottom-left-radius: 11px;
     margin-bottom: 70px;
-`
-
-export const TableRow = styled(Row).attrs(({ theme }) => ({
-    flexArr: [.9, 1, 1],
-    textStyle: {
-        color: theme.colors.dark,
-        opacity: .6,
-        textAlign: 'center',
-    }
-}))`
-    border-top-left-radius: 11px;
-    border-top-right-radius: 11px;
-    margin-bottom: 4px;
-    height: 40px;
-    background: ${({ theme }) => theme.colors.white};
-`
-
-export const TableColumn = styled(Col).attrs(({ theme }) => ({
-    textStyle: {
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        opacity: .6,
-        color: theme.colors.dark,
-        paddingHorizontal: 5,
-    },
-    width: 100
-}))`
-    background: ${({ theme }) => theme.colors.white};
-`
-
-export const TableRows = styled(Rows).attrs(({ theme }) => ({
-    textStyle: {
-        textAlign: 'center',
-        color: theme.colors.dark,
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlignVertical: 'center',
-    },
-    flexArr: [1.6, 1, 1]
-}))`
-    background: ${({ theme }) => theme.colors.white};
-    padding-right: 5px;
 `
 
 export const ButtonContainer = styled.View`
@@ -108,4 +62,42 @@ export const LoadingText = styled.Text`
     font-size: 32px;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.lime};
+`
+
+export const TableWrapper = styled(TlbWppr)`
+    flex-direction: row;
+    background: ${({ theme }) => theme.colors.white};
+`
+
+export const TableRow = styled(Row).attrs(({ theme }) => ({
+    flexArr: [.9, 1, 1],
+    textStyle: {
+        color: theme.colors.dark,
+        opacity: .6,
+        textAlign: 'center',
+    }
+}))`
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    margin-bottom: 4px;
+    height: 40px;
+    background: ${({ theme }) => theme.colors.white};
+`
+
+export const TableColumn = styled(Col).attrs(({ theme }) => ({
+    textStyle: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        opacity: .6,
+        color: theme.colors.dark,
+        paddingHorizontal: 5,
+    },
+    width: 100
+}))`
+    background: ${({ theme }) => theme.colors.white};
+`
+
+export const TableRowData = styled(Row)`
+    margin-left: 1.5%;
+    width: 72%;
 `

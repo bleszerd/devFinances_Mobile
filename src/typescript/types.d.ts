@@ -54,3 +54,9 @@ export interface TransactionsTableData {
     ] | [] | any
     heigthArr: number[]
 }
+
+export interface Transaction {
+    description: string
+    value: string
+    date: string
+}

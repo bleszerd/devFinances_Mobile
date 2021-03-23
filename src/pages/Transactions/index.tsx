@@ -1,519 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
-import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component'
+import { StyleSheet, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { NavigationProp } from '../../typescript/types'
+import { NavigationProp, Transaction } from '../../typescript/types'
 import * as S from './styles'
+import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component'
 
 import Header from '../../components/Header'
 import { TransactionsTableData } from '../../typescript/types'
+import { ScrollView } from 'react-native-gesture-handler'
 
 
-const transactionsData = {
-    transactions: [
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-        {
-            description: "Água",
-            value: '120,52',
-            date: '25/02/2021'
-        },
-    ]
-}
+const transactions: Transaction[] = [
+    {
+        description: "Água",
+        value: '-120,52',
+        date: '25/04/2021'
+    },
+    {
+        description: "Energia",
+        value: '-82,52',
+        date: '26/04/2021'
+    },
+    {
+        description: "Salário do mês",
+        value: '3.200',
+        date: '23/04/2021'
+    },
+]
 
 export default function Home() {
     const navigation = useNavigation<NavigationProp>()
@@ -534,10 +47,14 @@ export default function Home() {
                 heigthArr: []
             }
 
-            for (let transaction of transactionsData.transactions) {
+            for (let transaction of transactions) {
+                transaction.description = transaction.description.trim()
+
+                if (transaction.description.length >= 85) {
+                    transaction.description = transaction.description.substring(0, 85) + "..."
+                }
+
                 newTransactions.tableTitle.push(transaction.description)
-                newTransactions.tableData.push([transaction.value, transaction.date])
-                newTransactions.heigthArr.push(50)
             }
 
             setTableData(newTransactions)
@@ -547,6 +64,9 @@ export default function Home() {
         handleTableData()
     }, [])
 
+    function extractSignal(transactionValue: string): boolean {
+        return transactionValue.charAt(0) === '-'
+    }
 
     if (loading) {
         return (
@@ -562,17 +82,30 @@ export default function Home() {
 
             <S.TableContainer>
                 <Table>
-                    <S.TableRow data={tableData.tableHead} />
-                    <S.TableWrapper>
-                        <S.TableColumn
-                            data={tableData.tableTitle}
-                            heightArr={tableData.heigthArr}
-                        />
-                        <S.TableRows
-                            data={tableData.tableData}
-                            heightArr={tableData.heigthArr}
-                        />
-                    </S.TableWrapper>
+                    <S.TableRow data={["Descrição", "Valor", "Data"]} />
+
+                    {
+                        transactions.map(transact => {
+                            return (
+                                <View>
+                                    <S.TableWrapper>
+                                        <S.TableColumn
+                                            data={[transact.description]}
+                                            heightArr={[60]}
+                                        />
+                                        <S.TableRowData
+                                            textStyle={{
+                                                color: extractSignal(transact.value) ? "#990000" : "#49AA26",
+                                                textAlign: 'center'
+                                            }}
+                                            data={[`R$ ${transact.value}`, transact.date]}
+                                        />
+
+                                    </S.TableWrapper>
+                                </View>
+                            )
+                        })
+                    }
                 </Table>
 
                 <S.RadiusEffect />
@@ -590,3 +123,9 @@ export default function Home() {
         </S.Container>
     )
 }
+
+const styles = StyleSheet.create({
+    text: {
+        color: "red"
+    }
+})
