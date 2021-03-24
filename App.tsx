@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import Routes from './src/routes'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from './src/styles/theme.style'
+import { ModalProvider } from './src/context/modal'
 
 export default function App() {
   return (
@@ -15,7 +16,9 @@ export default function App() {
         <StatusBar
           hidden={true}
         />
-        <Routes />
+        <ModalProvider>
+          <Routes />
+        </ModalProvider>
       </ThemeProvider>
     </NavigationContainer>
   )
