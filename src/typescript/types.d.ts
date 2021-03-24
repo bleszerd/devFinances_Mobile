@@ -16,8 +16,20 @@ declare module 'styled-components' {
 }
 
 /* ================================ Card ================================ */
+export interface BalanceState {
+    expense: number
+    income: number
+    total: number
+}
+
+export interface CardContainerProps {
+    total?: boolean
+    type: IconType
+}
+
 export interface CardProps {
     total?: boolean
+    value: number
     type: IconType
 }
 
@@ -55,11 +67,24 @@ export interface TransactionsTableData {
     heigthArr: number[]
 }
 
-export interface Transaction {
+export interface ITransaction {
     description: string
     value: string
     date: string
     id: number | string
+}
+
+export interface TransactionContext {
+    transactions: Transaction[],
+    transactionController: {
+        addTransaction: (transaction: ITransaction) => void
+        removeTransaction: (transactionId: number | string) => void
+        ignoreAndSetRawTransactions: (transactions: ITransaction[]) => void
+    }
+}
+
+export interface TransactionProviderProps {
+    children: ReactNode
 }
 
 /* ================================ Modal ================================ */

@@ -1,50 +1,45 @@
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { NavigationProp, Transaction } from '../../typescript/types'
+import { NavigationProp, ITransaction } from '../../typescript/types'
 import { Table } from 'react-native-table-component'
 import * as S from './styles'
 import Header from '../../components/Header'
+import { useTransaction } from '../../context/transactions'
+import { extractSignal } from '../../utils/money'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 export default function Home() {
     const navigation = useNavigation<NavigationProp>()
     const [loading, setLoading] = useState(true)
-    const [transactions, setTransactions] = useState<Transaction[]>(
-        [
-            {
-                description: "Água",
-                value: '-120,52',
-                date: '25/04/2021',
-                id: 0
-            },
-            {
-                description: "Energia",
-                value: '-82,52',
-                date: '26/04/2021',
-                id: 1
-            },
-            {
-                description: "Salário do mês",
-                value: '3.200',
-                date: '23/04/2021',
-                id: 2
-            },
-        ]
-    )
+    const { transactions, transactionController } = useTransaction()
 
     useEffect(() => {
         setLoading(false)
     }, [])
-
-    function extractSignal(transactionValue: string): boolean {
-        return transactionValue.charAt(0) === '-'
-    }
 
     if (loading) {
         return (
             <S.LoadingContainer>
                 <S.LoadingText>Loading</S.LoadingText>
             </S.LoadingContainer>
+        )
+    }
+
+    if (!transactions?.length) {
+        return (
+            <S.LoadingContainer>
+                <S.LoadingText>Não há transações</S.LoadingText>
+                <Text>Psiu, faz uma tela mais bonitinha!</Text>
+            </S.LoadingContainer>
+        )
+    }
+
+    function LeftActions(transactionId: number | string) {
+        return (
+            <S.ButtonDelete onPress={() => transactionController.removeTransaction(transactionId)}>
+                <S.TrashIcon />
+            </S.ButtonDelete>
         )
     }
 
@@ -57,24 +52,30 @@ export default function Home() {
                     <S.TableRow data={["Descrição", "Valor", "Data"]} />
 
                     {
-                        transactions.map(transact => {
+                        transactions.map((transact: ITransaction) => {
                             return (
-                                <View key={transact.id}>
-                                    <S.TableWrapper>
-                                        <S.TableColumn
-                                            data={[transact.description]}
-                                            heightArr={[60]}
-                                        />
-                                        <S.TableRowData
-                                            textStyle={{
-                                                color: extractSignal(transact.value) ? "#990000" : "#49AA26",
-                                                textAlign: 'center'
-                                            }}
-                                            data={[`R$\t ${transact.value}`, transact.date]}
-                                        />
+                                <S.TableRowContainer key={transact.id}>
+                                    <Swipeable
+                                        renderLeftActions={() => LeftActions(transact.id)}
+                                    >
+                                        <S.TableRowContainer>
+                                            <S.TableWrapper>
+                                                <S.TableColumn
+                                                    data={[transact.description]}
+                                                    heightArr={[60]}
+                                                />
+                                                <S.TableRowData
+                                                    textStyle={{
+                                                        color: extractSignal(transact.value) ? "#990000" : "#49AA26",
+                                                        textAlign: 'center'
+                                                    }}
+                                                    data={[`R$\t ${parseFloat(transact.value).toFixed(2)}`, transact.date]}
+                                                />
 
-                                    </S.TableWrapper>
-                                </View>
+                                            </S.TableWrapper>
+                                        </S.TableRowContainer>
+                                    </Swipeable>
+                                </S.TableRowContainer>
                             )
                         })
                     }

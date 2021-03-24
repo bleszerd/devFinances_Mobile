@@ -1,12 +1,12 @@
-import React, {createContext, useState, useContext} from 'react'
+import React, { createContext, useState, useContext } from 'react'
 import { ModalContext, ModalProviderProps } from '../typescript/types'
 
 const Modal = createContext<ModalContext>({} as ModalContext)
 
-export function ModalProvider({children}: ModalProviderProps){
+export function ModalProvider({ children }: ModalProviderProps) {
     const [status, setStatus] = useState(false)
 
-    function toggleModal(){
+    function toggleModal() {
         setStatus(!status)
     }
 
@@ -24,8 +24,8 @@ export function ModalProvider({children}: ModalProviderProps){
     )
 }
 
-export function useModal(){
+export function useModal() {
     const context = useContext(Modal)
-    const {status, modalController} = context
-    return {status, modalController}
+    const { status, modalController } = context
+    return { status, modalController }
 }

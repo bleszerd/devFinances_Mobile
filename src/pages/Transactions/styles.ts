@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
-import { Feather } from '@expo/vector-icons';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
 import { Poppins_800ExtraBold } from '@expo-google-fonts/poppins';
-import { Table, TableWrapper as TlbWppr, Row, Rows, Col } from 'react-native-table-component'
+import { TableWrapper as TlbWppr, Row, Col } from 'react-native-table-component'
 
 export const Container = styled.SafeAreaView`
     flex: 1;
@@ -100,4 +100,23 @@ export const TableColumn = styled(Col).attrs(({ theme }) => ({
 export const TableRowData = styled(Row)`
     margin-left: 1.5%;
     width: 72%;
+`
+
+export const TableRowContainer = styled.View`
+    background: ${({ theme }) => theme.colors.concrete};
+`
+
+
+export const ButtonDelete = styled.TouchableOpacity`
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    background: #ff9999;
+`
+
+export const TrashIcon = styled(FontAwesome5).attrs(({
+    name: "trash"
+}))`
+    color: ${({theme}) => theme.colors.white};
+    font-size: 20px;
 `

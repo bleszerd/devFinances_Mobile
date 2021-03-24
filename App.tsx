@@ -6,6 +6,7 @@ import Routes from './src/routes'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from './src/styles/theme.style'
 import { ModalProvider } from './src/context/modal'
+import TransactionProvider from './src/context/transactions'
 
 export default function App() {
   return (
@@ -16,9 +17,11 @@ export default function App() {
         <StatusBar
           hidden={true}
         />
-        <ModalProvider>
-          <Routes />
-        </ModalProvider>
+        <TransactionProvider>
+          <ModalProvider>
+            <Routes />
+          </ModalProvider>
+        </TransactionProvider>
       </ThemeProvider>
     </NavigationContainer>
   )
