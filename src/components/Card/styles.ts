@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
-import { CardOnlyType, CardProps } from '../../typescript/types'
+import { CardOnlyType, CardContainerProps } from '../../typescript/types'
 
-export const Container = styled.View<CardProps>`
+export const Container = styled.View<CardContainerProps>`
     background: ${({ theme, type }) => type === "total" ? theme.colors.lime : theme.colors.white};
     height: 135px;
     padding-top: 10px;
