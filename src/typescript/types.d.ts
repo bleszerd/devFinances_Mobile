@@ -1,5 +1,5 @@
 import { DrawerNavigationProp } from "@react-navigation/drawer";
-import React from "react";
+import React, { ReactNode } from "react";
 
 /* ================================ Styled Components ================================ */
 declare module 'styled-components' {
@@ -21,8 +21,8 @@ export interface CardProps {
     type: IconType
 }
 
-export interface CardOnlyTotal {
-    total?: boolean
+export interface CardOnlyType {
+    type?: IconType
 }
 
 export type IconType = "income" | "expense" | "total"
@@ -59,4 +59,25 @@ export interface Transaction {
     description: string
     value: string
     date: string
+    id: number | string
+}
+
+/* ================================ Modal ================================ */
+export interface ModalContainerProps {
+    status: boolean
+}
+
+export interface ActionButtonProps {
+    type: "confirm" | "cancel"
+}
+
+export interface ModalContext {
+    status: boolean
+    modalController: {
+        toggleModal: () => void
+    }
+}
+
+export interface ModalProviderProps {
+    children: ReactNode
 }

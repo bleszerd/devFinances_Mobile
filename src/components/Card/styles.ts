@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
-import { CardOnlyTotal, CardProps } from '../../typescript/types'
+import { CardOnlyType, CardProps } from '../../typescript/types'
 
 export const Container = styled.View<CardProps>`
-    background: ${({ theme, total }) => total ? theme.colors.lime : theme.colors.white};
+    background: ${({ theme, type }) => type === "total" ? theme.colors.lime : theme.colors.white};
     height: 135px;
     padding-top: 10px;
     padding-bottom: 15px;
@@ -17,12 +17,12 @@ export const CardHeader = styled.View`
     flex: 1;
 `
 
-export const CardLabel = styled.Text<CardOnlyTotal>`
+export const CardLabel = styled.Text<CardOnlyType>`
     font-size: 20px;
-    color: ${({ theme, total }) => total ? theme.colors.white : theme.colors.dark};
+    color: ${({ theme, type }) => type === "total" ? theme.colors.white : theme.colors.dark};
 `
 
-export const CardValue = styled.Text<CardOnlyTotal>`
-    color: ${({ theme, total }) => total ? theme.colors.white : theme.colors.dark};
+export const CardValue = styled.Text<CardOnlyType>`
+    color: ${({ theme, type }) => type === "total" ? theme.colors.white : theme.colors.dark};
     font-size: 36px;
 `
