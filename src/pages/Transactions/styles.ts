@@ -52,14 +52,19 @@ export const ArrowLeftIcon = styled(Feather).attrs(({
 `
 
 export const LoadingContainer = styled.SafeAreaView`
-    flex: 1;
-    background: ${({ theme }) => theme.colors.concrete};
+    width: 94%;
+    height: 80%;
+    margin-top: -18%;
+    bottom: 0;
     justify-content: center;
     align-items: center;
+    align-self: center;
+    background: ${({ theme }) => theme.colors.white};
+    border-radius: 11px;
 `
 
 export const LoadingText = styled.Text`
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.lime};
 `

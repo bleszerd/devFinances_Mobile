@@ -1,16 +1,3 @@
-/*
-    const [transactions, setTransactions] = useState<Transaction[]>(
-        [
-            {
-                description: "Salário do mês",
-                value: '3.200',
-                date: '23/04/2021',
-                id: 0
-            },
-        ]
-    )
-*/
-
 import React, { createContext, useContext, useState } from 'react'
 import { ITransaction, TransactionContext, TransactionProviderProps } from '../typescript/types'
 

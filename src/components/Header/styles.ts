@@ -8,9 +8,3 @@ export const Container = styled.View`
     padding-bottom: 35%;
     background-color: #22460a;
 `
-
-export const LogoText = styled.Text`
-    color: #f0f2f5;
-    font-weight: bold;
-    font-size: 28px;
-`

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { Text, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NavigationProp, ITransaction } from '../../typescript/types'
 import { Table } from 'react-native-table-component'
@@ -28,10 +28,13 @@ export default function Home() {
 
     if (!transactions?.length) {
         return (
-            <S.LoadingContainer>
-                <S.LoadingText>Não há transações</S.LoadingText>
-                <Text>Psiu, faz uma tela mais bonitinha!</Text>
-            </S.LoadingContainer>
+            <>
+                <Header />
+                <S.LoadingContainer>
+                    <S.LoadingText>Ainda não há transações</S.LoadingText>
+                    <Text>Psiu, faz uma tela mais bonitinha!</Text>
+                </S.LoadingContainer>
+            </>
         )
     }
 

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { BalanceState, ITransaction, NavigationProp } from '../../typescript/types'
-import * as S from './styles'
+import { BalanceState, NavigationProp } from '../../typescript/types'
 import { useModal } from '../../context/modal'
 import { useTransaction } from '../../context/transactions'
 import { CalculateBalance } from '../../utils/money'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeAsyncData, getAsyncData } from '../../utils/data'
+
+import * as S from './styles'
 
 import Header from '../../components/Header'
 import Card from '../../components/Card'
@@ -15,50 +16,35 @@ import Modal from '../../components/Modal'
 export default function Home() {
     const { transactions, transactionController } = useTransaction()
     const { modalController } = useModal()
-    const navigation = useNavigation<NavigationProp>()
     const [balance, setBalance] = useState<BalanceState>({} as BalanceState)
+    const navigation = useNavigation<NavigationProp>()
 
-    useEffect(()=>{
-        (async () => {
-            await getTransactions()
-        })()
+    useEffect(() => {
+        (
+            async () => {
+                const recoveredTransactions = await getAsyncData('@app_transactions')
+                transactionController.ignoreAndSetRawTransactions(recoveredTransactions)
+            }
+        )()
     }, [])
 
     useEffect(() => {
-        (async () => {
-            setBalance(CalculateBalance(transactions))
-            await storeTransactions(transactions)
-        })()
-    }, [transactions])
-
-    async function storeTransactions(transactions: ITransaction[]){
-        try{
-            await AsyncStorage.setItem('@app_transactions', JSON.stringify(transactions))
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-    async function getTransactions(){
-        try{
-            const recoveredTransactions = await AsyncStorage.getItem('@app_transactions')
-            if(!!recoveredTransactions){
-                const parsedTransactions = JSON.parse(recoveredTransactions)
-                transactionController.ignoreAndSetRawTransactions(parsedTransactions)
+        (
+            async () => {
+                setBalance(CalculateBalance(transactions))
+                storeAsyncData(transactions, '@app_transactions')
             }
-        }catch(err){
-            console.log(err);
-        }
-    }
+        )()
+    }, [transactions])
 
     return (
         <S.Container>
             <Header />
             <Modal />
             <S.CardContainer>
-                <Card type="income" value={balance.income}/>
-                <Card type="expense" value={balance.expense}/>
-                <Card type="total" value={balance.total}/>
+                <Card type="income" value={balance.income} />
+                <Card type="expense" value={balance.expense} />
+                <Card type="total" value={balance.total} />
             </S.CardContainer>
             <View>
                 <S.TransitionButton
